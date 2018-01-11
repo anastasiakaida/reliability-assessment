@@ -4,12 +4,13 @@ notifications:
 language: python
 python: 3.6
 script:
-        - errors=`jupyter nbconvert rel_borrower.ipynb --stdout --to script | flake8 - --max-line-length=120 --ignore=W391,F821 \; `
-        - num_errors=`echo -n "$errors" | wc -l`
+        - errors=`jupyter nbconvert rel_borrower.ipynb --stdout --to script | flake8 - --max-line-length=120 --ignore=W391,F821 \;`
+        - num_errors=`jupyter nbconvert rel_borrower.ipynb --stdout --to script | flake8 - --max-line-length=120 --ignore=W391,F821 | wc -l`
         - |
             if [ $num_errors -eq 0 ]; then
               true 
             else
               echo "$errors"
+              echo "$num_errors"
               false 
             fi
